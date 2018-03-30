@@ -1,0 +1,81 @@
+BUG #1
+------
+Type: Typo on line 4 
+FIX: <inlcude> changed to <include>
+Discovery: Syntastic syntax checker plugin on Vim
+3/26/2018 10:46 AM
+
+BUG #2
+------
+Type: Incorrecet method on line 56 
+FIX: <fscanf> changed to <scanf>
+Discovery: Syntastic sytntax checker plugin on Vim
+3/26/2018 10:48 AM
+
+BUG #3
+------
+Equivalent to BUG #2
+Found on line 64
+
+BUG #4
+------
+Type: Implicit declarion of strcmp on line 65 
+FIX: <#include <string.h>> added to line 1
+Discovery: Syntastic syntax checker plugin on Vim
+3/26/2018 10:52 AM
+
+BUG #5
+------
+Type: Implicit declaration of fork, execvp, sleep on lines 68, 69, 72 
+FIX: <#include <unistd.h>> added to line 2
+Discovery: Syntastic syntax checker plugin on Vim
+3/26/2018 10:55 AM
+
+BUG #6
+------
+Type: Improper arguments for execvp on line 71 (69 prior to fix), 2nd Argument cannot be NULL
+FIX: Created an array of strings (char* args[3]) terminated with a NULL pointer (args[2] = NULL)
+Discovery: Syntastic syntax checker plugin on Vim
+3/26/2018 11:02 AM
+
+BUG #7
+------
+Type: Memory Leak of command, wallet, and filename variables initialzied with malloc on lines 49, 50, 63
+FIX: Added calls to free respective variables at lines 98, 99, 100
+Discovery: valgrind --leak-check=full
+3/26/2018 11:19 AM
+
+BUG #8
+------
+Type: Segmentation Fault at line 34, accessing out of array bounds due to num_wallets = 50000.
+FIX: Change parameters of generate_wallets to (struct wallets* wallet, int num) and set <int num_wallets = num>
+Discovery: valgrind memory check
+3/29/2018 12:17 AM
+
+BUG #9
+------
+Type: Invalid free of filename after print command is entered by user due to filename now referencing a different location.
+FIX: Have print segment use a different variable <fileout> to avoid this issue.
+Disocvery: gdb
+3/29/2018 12:27 AM
+
+BUG #10
+-------
+Type: Improper use of file pointers: files not closed after use.
+FIX: Add calls to <fclose(fp)> at respective areas after fopen
+Discovery: Close analyzation of code
+3/29/2018 12:30 AM
+
+BUG #11
+-------
+Type: Segmentation fault when given name of file that does not exist.
+FIX: Add check using <access> function before initial fopen call
+Discovery: Run the program using invalid input
+3/29/2018 12:34 AM
+
+BUG #12
+-------
+Type: Value of wallet.money printed as negative.
+FIX: Print unsigned digit <%u> on line 42
+Discovery: Opening the wallets_info.dat file after a successful run of the program
+3/30/2018 10:42 AM
