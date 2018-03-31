@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <time.h>
+#include <sys/wait.h>
 
 struct wallets {
     uint32_t key;
@@ -76,6 +77,7 @@ prompt:
             execvp("./print_help", args);
             exit(0);
         }
+		waitpid(pid, NULL, 0);
         sleep(1);
         goto prompt;
     }
