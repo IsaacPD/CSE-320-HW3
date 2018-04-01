@@ -79,3 +79,18 @@ Type: Value of wallet.money printed as negative.
 FIX: Print unsigned digit <%u> on line 42
 Discovery: Opening the wallets_info.dat file after a successful run of the program
 3/30/2018 10:42 AM
+
+BUG #13
+-------
+Type: Child process never reaped by parent. Fork but no waitpid
+FIX: Add <waitpid(pid, NULL, 0)> after fork.
+Discovery: Code analyzation
+3/31/2018 10:00 AM
+
+BUG #14
+-------
+Type: Improper register used in print_help.o:22 mov $0x0, %eax
+FIX: Used hexedit to edit byte and change <B8 to BF> and consequently <%eax to %edi>
+Discovery: objdump -d print_help.o. I noticed that the pattern was BF->E8, BF->E8
+and saw there was a change to B8->E8
+3/31/2018 12:03 PM

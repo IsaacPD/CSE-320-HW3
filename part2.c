@@ -43,6 +43,7 @@ int main(int argc, char** argv, char** envp){
 			args[0] = strcat(temp, buf);
 			if ((pid = fork()) == 0){
 				execve(args[0], args, envp);
+				exit(0);
 			}
 			else
 				waitpid(pid, NULL, 0); 
